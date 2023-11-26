@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\controllername;
 use App\Models\User;
+use App\Http\Controllers\fileuploadcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::group(['middleware'=>'auth:sanctum'], function (){
     //authenticated route with sanctum
-    Route::get('/datagotten/{id?}' , [controllername::class ,'functionname']);
-    Route::post('/add_data' , [controllername::class , 'data_adder']);
-    Route::delete('/delete/{name}' , [controllername::class , 'destroy']);
-    Route::put('/update' , [controllername::class , 'update']);
+    Route::get('/sho_api/{id?}' , [controllername::class ,'index']);
+    Route::post('/sho_api' , [controllername::class , 'store']);
+    Route::delete('/sho_api/{id}' , [controllername::class , 'destroy']);
+    Route::put('/sho_api' , [controllername::class , 'update']);
 });
-Route::post('/Register',[controllername::class , 'register']);
-Route::post('/tokens/create',[controllername::class , 'login']);
+Route::post('/sho_api/Register',[fileuploadcontroller::class , 'register']);
+Route::post('/sho_api/login_token',[fileuploadcontroller::class , 'login']);
