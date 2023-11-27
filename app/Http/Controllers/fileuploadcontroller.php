@@ -10,20 +10,24 @@ class fileuploadcontroller extends Controller
 {
     public function register(Request $req){
         $modellings = new User ();
-        $validity = array('name'=> 'required|max|255',
-                          'email' => 'required|regex:',
-                        'password'=> 'required');
-        $validator = validator::make($req->all(),$validity);
-        if ($validator->fails()){
+        $validity = [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'min:6'],
+        ];
+        
+        $validator = Validator::make($req->all(), $validity);
+        
+        if (!$validator->fails()){
         //hashing the passsword before saving it
             $mm = $req-> password;
             $mn = bcrypt($mm);
-            $as = $modellings->all();
-            $as-> save();
-        }
-        if($as){
-            return ['result'=>'registeration succesfull'];
-        } else{
+            $modellings->name = $req->name;
+            $modellings->email = $req->email;
+            $modellings->password = $mn;
+            $modellings-> save();
+            return ['result'=>'registeration succesfull and login'];
+        }else{
             return['result'=> ' pls recheck data' . 'error has happened'];
         }
     }

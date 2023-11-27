@@ -8,8 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class commentsModel extends Model
 {
     use HasFactory;
-    protected $table = 'comment_table';
+    protected $table = 'comments_table';  
+    protected $fillable = [
+        'comments',
+    ];
     public function two(){
         return $this->belongsTo(User::class);
     }
+
 }
