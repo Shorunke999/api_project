@@ -28,4 +28,4 @@ Route::group(['middleware'=>'auth:sanctum'], function (){
     Route::put('/sho_api' , [controllername::class , 'update']);
 });
 Route::post('/sho_api/Register',[fileuploadcontroller::class , 'register']);
-Route::post('/sho_api/login_token',[fileuploadcontroller::class , 'login']);
+Route::post('/login',[fileuploadcontroller::class , 'login'])->name('login');

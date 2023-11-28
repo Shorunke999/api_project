@@ -17,31 +17,14 @@ class controllername extends Controller
     }
     public function store(Request $req)
     {
-        // Retrieve the authenticated user
         $user = auth()->user();
-
-        // Assuming you have a 'one' relationship defined in your User model
-        $relatedModel = $user->one;
-
-        // Check if the related model exists
-        if (!$relatedModel) {
-            // If it doesn't exist, create a new instance
-            $relatedModel = new RelatedModel();
-            // Assuming you have a 'user_id' foreign key in the related model
-            $relatedModel->user_id = $user->id;
-        }
-
-        // Update the attributes
-        $relatedModel->comments = $req->input('comments');
-
-        // Save the related model
-        $relatedModel->save();
-
+        $comment_model = $user->one();
+        $comment_model->create(['comments'=> $req->comments]);
         return ['result' => 'Data has been added successfully'];
     }
     public function destroy($id =null){
         $modellings = auth()->user();
-        $aa = $id?$modelling -> one():$modelling -> one()->find($id);
+        $aa = $id?$modellings -> one():$modellings -> one()->find($id);
         $aa ->delete();
         return ['result'=>'data has been succesfully deletd'];
     }
