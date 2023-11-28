@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\Models\User;
-use app\Models\commentsModel;
+use App\Models\User;
+use App\Models\commentsModel;
 use Illuminate\Support\Facades\Validator;
 
 class controllername extends Controller
@@ -15,17 +15,29 @@ class controllername extends Controller
         $aa = $id?$modellings -> one():$modellings -> one()->find($id);
         return $aa;
     }
-    public function store(Request $req){
-        $modellings = auth()->user();
-        $as =$modellings ->one();
-        $as -> comments = $req ->comments;
-        $as -> save();
-        if($as){
-            return ['result'=>'data has been added succesfully'];
-        } else{
-            return['result'=> ' pls recheck data' . 'error has happened'];
+    public function store(Request $req)
+    {
+        // Retrieve the authenticated user
+        $user = auth()->user();
+
+        // Assuming you have a 'one' relationship defined in your User model
+        $relatedModel = $user->one;
+
+        // Check if the related model exists
+        if (!$relatedModel) {
+            // If it doesn't exist, create a new instance
+            $relatedModel = new RelatedModel();
+            // Assuming you have a 'user_id' foreign key in the related model
+            $relatedModel->user_id = $user->id;
         }
 
+        // Update the attributes
+        $relatedModel->comments = $req->input('comments');
+
+        // Save the related model
+        $relatedModel->save();
+
+        return ['result' => 'Data has been added successfully'];
     }
     public function destroy($id =null){
         $modellings = auth()->user();
