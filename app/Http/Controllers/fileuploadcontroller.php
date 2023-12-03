@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use App\Events\fistevent;
 
 class fileuploadcontroller extends Controller
 {
     public function register(Request $req){
-        $modellings = new User ();
+        $user = new User ();
         $validity = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
@@ -22,13 +23,14 @@ class fileuploadcontroller extends Controller
         //hashing the passsword before saving it
             $mm = $req-> password;
             $mn = bcrypt($mm);
-            $modellings->name = $req->name;
-            $modellings->email = $req->email;
-            $modellings->password = $mn;
-            $modellings-> save();
-            return ['result'=>'registeration succesfull and login'];
+            $user->name = $req->name;
+            $user->email = $req->email;
+            $user->password = $mn;
+            $user-> save();
+            event(new fistevent($user));
+            return  response()->json(['result'=>'registeration succesfull and login']);
         }else{
-            return['result'=> ' pls recheck data' . 'error has happened'];
+            return response()->json(['result'=> ' pls recheck data' . 'error has happened']);
         }
     }
     public function login (Request $request) {
@@ -66,7 +68,6 @@ class fileuploadcontroller extends Controller
                 'message' => 'Login successful',
                 'token' => $token,
             ], 200);
-            event(new fistevent($user));
         }else{
         // If the password is incorrect, return an error response
         return response()->json([

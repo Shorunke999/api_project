@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Events\fistevent;
 
 class fistlistener
 {
@@ -20,6 +21,6 @@ class fistlistener
      */
     public function handle(object $event): void
     {
-        dumb('email sent');
+        Mail::to($user)->send(new send_email($user));
     }
 }
