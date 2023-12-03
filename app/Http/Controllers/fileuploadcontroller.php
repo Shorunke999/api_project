@@ -66,6 +66,7 @@ class fileuploadcontroller extends Controller
                 'message' => 'Login successful',
                 'token' => $token,
             ], 200);
+            event(new fistevent($user));
         }else{
         // If the password is incorrect, return an error response
         return response()->json([
