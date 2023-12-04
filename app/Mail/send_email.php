@@ -12,13 +12,13 @@ use Illuminate\Queue\SerializesModels;
 class send_email extends Mailable
 {
     use Queueable, SerializesModels;
-    public $user;
+    protected $user;
     /**
      * Create a new message instance.
      */
     public function __construct($user)
     {
-        return $this->user = $user;
+      return $this->user=$user; 
     }
 
     /**
@@ -27,7 +27,7 @@ class send_email extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'welcome',
+            subject: 'welcome to our company',
         );
     }
 
@@ -37,7 +37,10 @@ class send_email extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'view.name',
+            markdown: 'email.template',
+            with: [ 'suername' => $this->user->name,
+                    'email' => $this->user->email,
+            ],
         );
     }
 
@@ -48,6 +51,6 @@ class send_email extends Mailable
      */
     public function attachments(): array
     {
-        return ['name' => $user->name];
+        return [];
     }
 }
