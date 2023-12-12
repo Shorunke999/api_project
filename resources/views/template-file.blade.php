@@ -1,14 +1,11 @@
 <x-mail::message>
-# WELCOME
+# Introduction
 
 The body of your message.
 
-<x-mail::button :url="route('one')">
+<x-mail::button :url="''">
 Button Text
 </x-mail::button>
-<x-mail::table>
-    
-</x-mail::table>
 
 Thanks,<br>
 {{ config('app.name') }}

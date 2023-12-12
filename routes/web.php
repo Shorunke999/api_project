@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\send_email;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Facade;
 
 /*
@@ -19,10 +19,13 @@ use Illuminate\Support\Facades\Facade;
 Route::get('/', function () {
     return view('welcome')->name('one');
 });
-if (App::environment('local')){
+/*if (App::environment('local')){
     Route::get('/mail' , function(){
-        $user = ['name'=> 'olamilekan',
-            'email'=> 'shorunke99@gmail.com'];
-        Mail::to($user)->send(new send_email($user));
+       return(new send_email($user))->render();
     });
-}
+}*/
+Route::get('/message', function () {
+    return view('welcome');
+})->name('message');
+Route::post('/message',[Controller::class , 'goo']
+)->name('message');

@@ -5,21 +5,21 @@ namespace App\Events;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PublicChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class fistevent implements ShouldBroadcast
+class chat_event
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    protected $user;
+    protected $message;
     /**
      * Create a new event instance.
      */
-    public function __construct($user)
+    public function __construct($message)
     {
-        return $this->user = $user;
+        return $this->message =$message;
         //
     }
 
@@ -31,7 +31,13 @@ class fistevent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('channel-name'),
+            new PublicChannel('message_channel'),
+        ];
+    }
+    public function broadcastWith(): array
+    {
+        return [
+            'message'=> $message,
         ];
     }
 }

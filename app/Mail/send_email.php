@@ -18,7 +18,7 @@ class send_email extends Mailable
      */
     public function __construct($user)
     {
-      return $this->user=$user; 
+        return $this->user = $user;
     }
 
     /**
@@ -27,7 +27,7 @@ class send_email extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'welcome to our company',
+            subject: 'Send Email',
         );
     }
 
@@ -37,10 +37,7 @@ class send_email extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'email.template',
-            with: [ 'suername' => $this->user->name,
-                    'email' => $this->user->email,
-            ],
+            markdown: 'template-file',
         );
     }
 
