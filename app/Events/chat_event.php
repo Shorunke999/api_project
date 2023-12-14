@@ -13,13 +13,13 @@ use Illuminate\Queue\SerializesModels;
 class chat_event
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    protected $message;
+    protected $messsage;
     /**
      * Create a new event instance.
      */
     public function __construct($message)
     {
-        return $this->message =$message;
+        return $this->messsage =$messsage;
         //
     }
 
@@ -37,7 +37,7 @@ class chat_event
     public function broadcastWith(): array
     {
         return [
-            'message'=> $message,
+            'message'=>$this->message,
         ];
     }
 }

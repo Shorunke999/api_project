@@ -9,12 +9,12 @@
 </head>
 <body>
     <form action="" id = 'form'>
-        <div>
+        <div id = "">
             <ul>
 
             </ul>
         </div>
-        <div>
+        <div id = "">
             <label for="input_message">MESSAGE</label>
             <input type="text" placeholder="" name = 'input_message'>
         </div>

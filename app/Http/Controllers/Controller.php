@@ -10,6 +10,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
     public function goo (){
-        
+        //if code here is true
+        //kickstart event using event helper function
     }
 }

@@ -25,7 +25,7 @@ Route::get('/', function () {
     });
 }*/
 Route::get('/message', function () {
-    return view('welcome');
+    return view('messaging_template');
 })->name('message');
 Route::post('/message',[Controller::class , 'goo']
 )->name('message');
